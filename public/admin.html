@@ -1,0 +1,216 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Sell Your Storage</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/base.css">
+<style>
+  body{background:#0f0f0f;color:#fffaf2}
+  .admin-shell{max-width:1240px;margin:0 auto;padding:32px 24px 80px}
+  .admin-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 24px;flex-wrap:wrap;gap:18px}
+  .admin-head h1{font-family:var(--display);font-size:32px;margin:0;color:#fffaf2}
+  .admin-head .brand{color:#fffaf2}
+  .tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(255,250,242,.16);border-radius:999px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:#fffaf2;cursor:pointer}
+  .pill:hover{border-color:var(--accent);color:var(--accent)}
+  .pill.active{background:var(--accent);color:#0f0f0f;border-color:var(--accent)}
+  .stat-mini{padding:18px 22px;border:1px solid rgba(255,250,242,.12);border-radius:14px;background:#171717}
+  .stat-mini .v{font-family:var(--display);font-size:30px;color:var(--accent);line-height:1}
+  .stat-mini .l{margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#9c9990;text-transform:uppercase}
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 24px}
+  @media (max-width:760px){.stat-row{grid-template-columns:repeat(2,1fr)}}
+  .table-card{background:#171717;border:1px solid rgba(255,250,242,.1);border-radius:14px;overflow:hidden}
+  .lt{width:100%;border-collapse:collapse;font-size:14px}
+  .lt th,.lt td{padding:14px 16px;text-align:left;border-bottom:1px solid rgba(255,250,242,.06);vertical-align:top}
+  .lt th{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9c9990;background:#1c1c1c}
+  .lt tr:hover td{background:rgba(255,91,31,.04)}
+  .lt .v{font-family:var(--mono);font-size:11px;letter-spacing:.14em;padding:3px 8px;border-radius:4px;background:rgba(255,91,31,.16);color:var(--accent);display:inline-block}
+  .lt .v.B{background:rgba(102,180,255,.16);color:#8ec3ff}
+  .lt .v.C{background:rgba(146,255,168,.14);color:#8ce9a4}
+  .lt .name{font-weight:600;color:#fffaf2}
+  .lt .notes{color:#9c9990;max-width:380px}
+  .lt a{color:var(--accent)}
+  .empty{padding:60px 24px;text-align:center;color:#9c9990}
+  .login{max-width:420px;margin:120px auto;padding:32px;background:#171717;border:1px solid rgba(255,250,242,.1);border-radius:18px}
+  .login h2{font-family:var(--display);margin:0 0 8px;color:#fffaf2}
+  .login p{color:#9c9990;margin:0 0 22px}
+  .login input{width:100%;padding:14px 16px;border:1.5px solid rgba(255,250,242,.18);border-radius:10px;background:#0f0f0f;color:#fffaf2;font-family:var(--mono)}
+  .login button{margin-top:14px;width:100%;padding:14px;background:var(--accent);color:#0f0f0f;border:0;border-radius:10px;font-family:var(--display);cursor:pointer;font-size:15px;letter-spacing:.04em}
+  .login .err{color:#ff8a6f;margin-top:10px;font-family:var(--mono);font-size:12px}
+  .hide{display:none}
+</style>
+</head>
+<body>
+
+<div id="login-view" class="login">
+  <h2>Admin</h2>
+  <p>Paste your admin token to view leads.</p>
+  <input id="token" type="password" placeholder="Admin token" autocomplete="off">
+  <button id="login-btn">Unlock →</button>
+  <p id="login-err" class="err"></p>
+</div>
+
+<div id="app-view" class="admin-shell hide">
+  <div class="admin-head">
+    <div>
+      <div class="brand" style="font-family:var(--display);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#9c9990;margin-bottom:6px">SELL YOUR STORAGE · ADMIN</div>
+      <h1>Leads</h1>
+    </div>
+    <div class="tools">
+      <button class="pill active" data-filter="ALL">All</button>
+      <button class="pill" data-filter="A">A · Got shit</button>
+      <button class="pill" data-filter="B">B · The math</button>
+      <button class="pill" data-filter="C">C · I have stuff</button>
+      <button class="pill" id="refresh">↻ Refresh</button>
+      <button class="pill" id="export">⬇ Export CSV</button>
+      <button class="pill" id="logout">Logout</button>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-mini"><div class="v" id="s-total">0</div><div class="l">Total leads</div></div>
+    <div class="stat-mini"><div class="v" id="s-a">0</div><div class="l">Variant A</div></div>
+    <div class="stat-mini"><div class="v" id="s-b">0</div><div class="l">Variant B</div></div>
+    <div class="stat-mini"><div class="v" id="s-c">0</div><div class="l">Variant C</div></div>
+  </div>
+
+  <div class="table-card">
+    <table class="lt">
+      <thead><tr>
+        <th>Variant</th><th>Name</th><th>Phone</th><th>Email</th><th>Notes</th><th>Submitted</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div id="empty" class="empty hide">No leads yet. Push the ads.</div>
+  </div>
+
+  <p style="margin-top:24px;color:#666;font-size:12px;font-family:var(--mono);text-align:center">Backed by GitHub gist · keep this URL private.</p>
+</div>
+
+<a class="genie-wm" href="https://jelly-claw.com" target="_blank" rel="noopener"><img src="/favicon.svg" alt="">genie</a>
+<script>
+const LS_KEY = 'sys_admin_token_v1';
+let TOKEN = sessionStorage.getItem(LS_KEY) || '';
+let LEADS = [];
+let FILTER = 'ALL';
+
+const $ = (s) => document.querySelector(s);
+
+function fmtPhone(p){ return p || '—'; }
+function fmtTs(iso){
+  try { const d = new Date(iso); return d.toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }
+  catch(e){ return iso; }
+}
+function esc(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+
+async function fetchLeads(){
+  try {
+    const r = await fetch('/api/leads', { headers: { Authorization: 'Bearer ' + TOKEN } });
+    if (r.status === 401) { logout('Invalid token.'); return; }
+    if (!r.ok) throw new Error('http ' + r.status);
+    const j = await r.json();
+    LEADS = j.leads || [];
+    render();
+  } catch(e) {
+    $('#empty').classList.remove('hide');
+    $('#empty').textContent = 'Could not load leads. ' + e.message;
+  }
+}
+
+function render(){
+  const counts = { A:0, B:0, C:0 };
+  LEADS.forEach(l => { if (counts[l.variant] !== undefined) counts[l.variant]++; });
+  $('#s-total').textContent = LEADS.length;
+  $('#s-a').textContent = counts.A;
+  $('#s-b').textContent = counts.B;
+  $('#s-c').textContent = counts.C;
+
+  const filtered = FILTER === 'ALL' ? LEADS : LEADS.filter(l => l.variant === FILTER);
+  const tbody = $('#rows');
+  tbody.innerHTML = '';
+  if (!filtered.length) {
+    $('#empty').classList.remove('hide');
+    $('#empty').textContent = 'No leads in this view yet.';
+    return;
+  }
+  $('#empty').classList.add('hide');
+  for (const l of filtered) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="v ${esc(l.variant)}">${esc(l.variant)}</span></td>
+      <td class="name">${esc(l.name)}</td>
+      <td><a href="tel:${esc(l.phone)}">${esc(fmtPhone(l.phone))}</a></td>
+      <td><a href="mailto:${esc(l.email)}">${esc(l.email)}</a></td>
+      <td class="notes">${esc(l.notes||'—')}</td>
+      <td style="font-family:var(--mono);font-size:12px;color:#9c9990;white-space:nowrap">${esc(fmtTs(l.ts))}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function exportCsv(){
+  const rows = [['variant','name','phone','email','notes','submitted_at','referer']];
+  const target = FILTER === 'ALL' ? LEADS : LEADS.filter(l => l.variant === FILTER);
+  for (const l of target) {
+    rows.push([l.variant, l.name, l.phone, l.email, (l.notes||'').replace(/\n/g,' '), l.ts, l.ref||'']);
+  }
+  const csv = rows.map(r => r.map(c => '"'+String(c||'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sell-your-storage-leads-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+function logout(msg){
+  sessionStorage.removeItem(LS_KEY);
+  TOKEN = '';
+  $('#login-view').classList.remove('hide');
+  $('#app-view').classList.add('hide');
+  if (msg) $('#login-err').textContent = msg;
+  $('#token').focus();
+}
+
+$('#login-btn').addEventListener('click', async () => {
+  const t = $('#token').value.trim();
+  if (!t) { $('#login-err').textContent = 'Token required.'; return; }
+  // Validate by attempting a fetch
+  const r = await fetch('/api/leads', { headers: { Authorization: 'Bearer ' + t } });
+  if (r.status === 200) {
+    TOKEN = t;
+    sessionStorage.setItem(LS_KEY, TOKEN);
+    $('#login-err').textContent = '';
+    $('#login-view').classList.add('hide');
+    $('#app-view').classList.remove('hide');
+    fetchLeads();
+  } else {
+    $('#login-err').textContent = 'That token didn\'t work. Try again.';
+  }
+});
+$('#token').addEventListener('keypress', e => { if (e.key === 'Enter') $('#login-btn').click(); });
+
+document.querySelectorAll('.pill[data-filter]').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.pill[data-filter]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    FILTER = b.dataset.filter;
+    render();
+  });
+});
+$('#refresh').addEventListener('click', fetchLeads);
+$('#export').addEventListener('click', exportCsv);
+$('#logout').addEventListener('click', () => logout(''));
+
+if (TOKEN) {
+  $('#login-view').classList.add('hide');
+  $('#app-view').classList.remove('hide');
+  fetchLeads();
+  setInterval(fetchLeads, 30000);
+} else {
+  $('#token').focus();
+}
+</script>
+</body></html>

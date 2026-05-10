@@ -1,0 +1,176 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>$2,160 a year. For a closet you forgot about. — Sell Your Storage</title>
+<meta name="description" content="The average storage unit costs $180/mo. That's $2,160 a year to keep boxes in the dark. Cancel it. We'll help you sell what's inside.">
+<meta property="og:title" content="$2,160/yr — for a closet you forgot about">
+<meta property="og:description" content="The math is brutal. Most storage units cost more per year than what's inside is worth. Flip it.">
+<meta property="og:image" content="/assets/hero.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/base.css">
+<style>
+  /* Variant B emphasises numbers — slightly different hero */
+  .hero h1 .num{font-feature-settings:'tnum','zero';color:var(--accent)}
+  .calc-card{background:var(--ink0);color:#fffaf2;border-radius:18px;padding:38px;margin-top:24px}
+  .calc-card h3{font-family:var(--display);margin:0 0 18px;font-size:22px;color:#fffaf2}
+  .calc-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,250,242,.14)}
+  .calc-row:last-child{border:0;margin-top:8px;padding-top:18px;border-top:2px solid var(--accent);font-size:22px}
+  .calc-row .l{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#cfc9bf}
+  .calc-row .v{font-family:var(--display);font-size:24px;color:#fffaf2;font-feature-settings:'tnum','zero'}
+  .calc-row.total .v{color:var(--accent);font-size:34px}
+  .calc-input{background:transparent;border:1.5px solid rgba(255,250,242,.18);color:#fffaf2;padding:10px 12px;border-radius:8px;width:120px;text-align:right;font-family:var(--mono);font-size:15px}
+  .calc-input:focus{outline:none;border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap nav-row">
+  <a href="/b" class="brand"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="2" y="3" width="28" height="26" rx="3" fill="#0f0f0f"/><rect x="6" y="6" width="20" height="20" fill="#ff5b1f"/><g stroke="#0f0f0f" stroke-width="1.4"><line x1="6" y1="10" x2="26" y2="10"/><line x1="6" y1="14" x2="26" y2="14"/><line x1="6" y1="18" x2="26" y2="18"/><line x1="6" y1="22" x2="26" y2="22"/></g><rect x="13" y="22" width="6" height="3" fill="#0f0f0f"/></svg>SELL YOUR STORAGE</a>
+  <a href="#lead-form" class="nav-cta">CANCEL THE UNIT <span class="arrow">→</span></a>
+</div></nav>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">THE MATH IS BRUTAL</span>
+      <h1><span class="num">$2,160</span> a year. For a closet you <em>forgot</em> about.</h1>
+      <p class="sub">That&rsquo;s the U.S. average. $180/mo to keep boxes in the dark. We&rsquo;ll help you sell what&rsquo;s inside and cancel the auto-pay.</p>
+      <div class="cta-row">
+        <a href="#lead-form" class="btn-primary">Cancel my unit <span class="arrow">→</span></a>
+        <a href="#calc" class="btn-ghost">Run the numbers</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="/assets/storage_flatlay.jpg" alt="Flat-lay of moving boxes, a calculator, and a storage invoice" loading="eager">
+      <span class="tag">Annual cost · You vs. the unit</span>
+    </div>
+  </div>
+</section>
+
+<section class="composed" id="calc">
+  <div class="wrap">
+    <p class="eyebrow">RUN THE NUMBERS</p>
+    <h2>How much is your unit really costing you?</h2>
+    <p class="lede">Plug in your monthly rate. See the annual damage. Then ask: is the stuff inside worth more than that?</p>
+    <div class="calc-card">
+      <h3>Storage cost calculator</h3>
+      <div class="calc-row">
+        <div class="l">Monthly rent</div>
+        <div class="v">$<input class="calc-input" id="calc-monthly" type="number" min="0" value="180"></div>
+      </div>
+      <div class="calc-row">
+        <div class="l">Months you&rsquo;ve had it</div>
+        <div class="v"><input class="calc-input" id="calc-months" type="number" min="0" value="14"></div>
+      </div>
+      <div class="calc-row">
+        <div class="l">Annual run-rate</div>
+        <div class="v" id="calc-annual">$2,160</div>
+      </div>
+      <div class="calc-row total">
+        <div class="l">Total spent so far</div>
+        <div class="v" id="calc-total">$2,520</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;color:var(--ink-mute);font-size:13px">* This is what you&rsquo;ve already burned. The point is to stop the bleed.</p>
+  </div>
+</section>
+
+<section class="composed" id="how">
+  <div class="wrap">
+    <p class="eyebrow">HOW WE STOP IT</p>
+    <h2>You sell. We help. The unit closes.</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="num">▸ STEP 01</div>
+        <h3>Tell us what&rsquo;s in there</h3>
+        <p>Name, phone, email, and a one-line list of what you remember storing.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">▸ STEP 02</div>
+        <h3>We flag what sells</h3>
+        <p>Some stuff has real resale. Some is donation. We&rsquo;ll be honest about both within a day.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">▸ STEP 03</div>
+        <h3>Cancel the unit</h3>
+        <p>Once it&rsquo;s empty, you call the storage company and end the subscription. Money in. Bill off.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="composed" id="evidence">
+  <div class="wrap">
+    <p class="eyebrow">RESALE REALITY</p>
+    <h2>The stuff inside is more valuable than you think.</h2>
+    <p class="lede">A road bike from 2018 still moves for $400+. A 55&Prime; TV from 2020: $150. A box of vinyl, even casual stuff, easily $200. Power tools clear $50–$300 each. None of that is sitting in your account right now.</p>
+    <div class="metrics">
+      <div class="metric"><div class="v">$500&ndash;$3,000</div><div class="l">TYPICAL RESALE / UNIT</div></div>
+      <div class="metric"><div class="v">~14 days</div><div class="l">FROM CALL TO CANCELLED</div></div>
+      <div class="metric"><div class="v">100%</div><div class="l">YOURS — WE TAKE NO CUT*</div></div>
+    </div>
+    <p style="margin-top:18px;color:var(--ink-mute);font-size:13px">* You sell, you keep it. We&rsquo;re here to coach the process. If you&rsquo;d rather we consign for you, just say so on the call.</p>
+  </div>
+</section>
+
+<section class="composed" id="lead-form">
+  <div class="wrap">
+    <p class="eyebrow">LEAD FORM</p>
+    <h2>Cancel the unit. Keep the cash.</h2>
+    <p class="lede">Drop your info. We&rsquo;ll text you within 24 hours with a plan.</p>
+    <div class="form-wrap">
+      <div class="form-card">
+        <h3>Tell us what you&rsquo;re paying for</h3>
+        <p class="hint">Takes 30 seconds. No credit card. No salesperson.</p>
+        <form data-lead-form data-variant="B" data-cta="Get the plan →">
+          <div class="field"><label for="b-name">Your name</label><input id="b-name" name="name" type="text" required autocomplete="name"></div>
+          <div class="field"><label for="b-phone">Phone number</label><input id="b-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(555) 555-5555"></div>
+          <div class="field"><label for="b-email">Email</label><input id="b-email" name="email" type="email" required autocomplete="email"></div>
+          <div class="field"><label for="b-notes">What&rsquo;s in there? (optional)</label><textarea id="b-notes" name="notes" placeholder="e.g. couch, road bike, 2 boxes of vinyl, an old TV"></textarea></div>
+          <button type="submit" class="submit">Get the plan <span>→</span></button>
+        </form>
+        <p class="form-status"></p>
+      </div>
+      <div class="form-side">
+        <h3>$2,160 is a vacation. Or a couch you&rsquo;d actually sit on.</h3>
+        <p>It&rsquo;s also what you&rsquo;re paying every year to keep boxes you forgot about. That&rsquo;s the math.</p>
+        <div class="pad"><img src="/assets/items_grid.jpg" alt="Resellable items from a storage unit"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <p class="eyebrow on-dark">FINAL MATH</p>
+    <h2>One bill. Cancelled. Forever.</h2>
+    <p class="lede">30 seconds to tell us what you&rsquo;ve got. Two weeks to be free of it.</p>
+    <a href="#lead-form" class="btn-primary">Cancel my unit <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<footer><div class="wrap row">
+  <span class="brand">SELL YOUR STORAGE · 2026</span>
+  <span>The cheapest closet is the one you don&rsquo;t pay for. <a href="#lead-form">Get the call →</a></span>
+</div></footer>
+<a class="genie-wm" href="https://jelly-claw.com" target="_blank" rel="noopener"><img src="/favicon.svg" alt="">genie</a>
+<script src="/assets/form.js" defer></script>
+<script>
+  // Calculator
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function recalc(){
+    const m = Math.max(0, +document.getElementById('calc-monthly').value || 0);
+    const months = Math.max(0, +document.getElementById('calc-months').value || 0);
+    document.getElementById('calc-annual').textContent = fmt(m * 12);
+    document.getElementById('calc-total').textContent  = fmt(m * months);
+  }
+  document.getElementById('calc-monthly').addEventListener('input', recalc);
+  document.getElementById('calc-months').addEventListener('input', recalc);
+  recalc();
+</script>
+</body></html>

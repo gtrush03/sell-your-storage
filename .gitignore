@@ -1,0 +1,7 @@
+.env*
+.vercel
+node_modules
+*.log
+.DS_Store
+assets_gen.sh
+.gist_id
